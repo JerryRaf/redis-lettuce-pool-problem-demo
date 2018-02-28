@@ -29,15 +29,18 @@ public class RedisDemoApplication {
 
 		@GetMapping(value = "/getRedisCluster")
 		public String getRedisCluster() {
-			byte[] bytes = redisConnectionFactory.getClusterConnection().stringCommands()
-					.get("key".getBytes());
-			if (bytes != null) {
-				String value = new String(bytes, StandardCharsets.UTF_8);
+//			byte[] bytes = redisConnectionFactory.getClusterConnection().stringCommands()
+//					.get("key".getBytes());
+//			if (bytes != null) {
+//				String value = new String(bytes, StandardCharsets.UTF_8);
+
+				stringRedisTemplate.opsForValue().set("stringKey", "stringValue");
 				String stringValue = stringRedisTemplate.opsForValue().get("stringKey");
-				return value + "_" + stringValue;
-			} else {
-				return "error";
-			}
+				return stringValue;
+//      return "ok";
+//			} else {
+//				return "error";
+//			}
 		}
 	}
 }
